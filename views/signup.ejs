@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title> Login</title>
+    <link rel="stylesheet" href="/stylesheet/css/boxicons.min.css">
+    <link rel="stylesheet" href="/stylesheet/css/signupLogin.css"> 
+    <title>signup</title>
+   </head>
+<body>
+  <body>
+    <div class="form-wrapper">
+      <div class="wrapper">
+        <div class="icon">
+         <i class='bx bxs-user-circle'></i>
+        </div>
+        <div class="title">sign up</div>
+        <form action="/signup">
+            <div class="userName error"></div>
+            <div class="phoneNumber error"></div>
+            <div class="email error"></div>
+            <div class=" password  error"></div>
+            <div class="field">
+                  <input type="text" name="userName" required/>
+                  <label>User name</label>
+               </div>
+            <div class="field">
+                  <input type="number" name="phoneNumber" required/>
+                  <label>Phone number</label>
+               </div>
+           <div class="field">
+              <input type="text" name="email" required/>
+              <label>E-mail</label>
+           </div>
+           <div class="field">
+              <input type="password" name="password" required/>
+              <label>Password</label>
+           </div>
+           <div class="content">
+              <div class="checkbox">
+                 <input type="checkbox" id="remember-me">
+                 <label for="remember-me">Remember me</label>
+              </div>
+              <div class="pass-link">
+                 <a href="#">Forgot password?</a>
+              </div>
+           </div>
+           <div class="field">
+              <input type="submit" value="sign up">
+           </div>
+           <div class="signup-link">
+              already have an account? <a href="/login">login here</a>
+           </div>
+        </form>
+     </div>
+
+
+<script>
+    const form = document.querySelector('form');
+
+    const userNameError = document.querySelector('.userName.error');
+    const phoneNumberError = document.querySelector('.phoneNumber.error');
+    const emailError = document.querySelector('.email.error');
+    const passwordError = document.querySelector('.password.error');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+
+        // reset errors
+        userNameError.textContent = '';
+        phoneNumberError.textContent = '';
+        emailError.textContent = '';
+        passwordError.textContent = '';
+
+        // get the values
+        const userName = form.userName.value;
+        const phoneNumber = form.phoneNumber.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        
+
+        try {
+            const res = await fetch ('/signup', {
+                method: 'POST',
+                body: JSON.stringify( { userName, phoneNumber, email, password } ),
+                headers: { 'Content-Type' : 'application/json' }
+            });
+            const data = await res.json();
+            console.log(data);
+            if (data.errors) {
+                userNameError.textContent = data.errors.userName;
+                phoneNumberError.textContent = data.errors.phoneNumber;
+                emailError.textContent = data.errors.email;
+                passwordError.textContent = data.errors.password;
+            }
+            if (data.user) {
+                location.assign('/login');
+            };
+        } 
+        catch ( err ) {
+            console.log( err );
+        }
+    });
+</script>
+
+

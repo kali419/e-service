@@ -1,0 +1,10 @@
+<%- include('partials/userHeader'); -%>
+<div style="display: flex; justify-content: space-between;">
+        <% allServiceProviders.forEach(allServiceProviders => { %>
+          <div style="padding: 20px; background-color: green; width: 300px;">
+              <h5><%= allServiceProviders.email %></h5>
+              <p><%=   allServiceProviders.specialization %></p>
+          </div>
+    <% }); %>  
+</div>
+<%- include('partials/userFooter'); -%>

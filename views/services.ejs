@@ -1,0 +1,473 @@
+<%- include('partials/userHeader'); -%>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <style>
+    .header {
+      background: linear-gradient(to right, #11245A, #349dff);
+      color: #fff;
+      padding: 100px 20px;
+      text-align: center;
+    }
+    .header h1 {
+      margin-top: 20px;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .header p {
+      font-size: 16px; 
+      max-width: 750px;
+      margin: 18px auto;
+    }
+    .header .buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .header .action-btn {
+      background-color: rgb(15, 35, 100);
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: scale 0.2s ease;
+    }
+
+    .header .action-btn:hover {
+      scale: 1.05;
+    }
+
+    .header .action-btn:active {
+      scale: 0.95;
+    }
+
+    /* Filter container styles */
+    .filter-container {
+      text-align: center;
+    }
+
+    /* Search input styles */
+    #search-input {
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    /* Category select styles */
+    label {
+      font-size: 16px;
+      margin-right: 10px;
+    }
+
+    #category {
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    
+    .service-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex-direction: column;
+      background-color: #fafafa;
+      padding: 20px;
+    }
+    .service-container h1 {
+      font-size: 2.5em;
+      margin: 10px 0;
+      font-weight: 600;
+      color: #00215f;
+      text-align: center;
+    }
+    .line {
+      width: 18%;
+      border: 2px solid #00215f;
+      border-radius: 5px;
+      margin-bottom: 40px;
+    }
+    .line {
+      width: 18%;
+      border: 2px solid #00215f;
+      border-radius: 5px;
+      margin-bottom: 40px;
+    }
+    .item-container p {
+      font-size: 20px;
+      color: #6c757d;
+    }
+    /* Overlay CSS */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay-content {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+  text-align: center;
+}
+
+.overlay h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #fafafa;
+}
+
+.overlay form {
+  display: flex;
+  flex-direction: column;
+}
+
+.overlay label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.overlay input {
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #000;
+  border-radius: 5px;
+}
+
+#selected-service {
+  background-color: gray;
+  font-size: 14px;
+  color: #f3f3f3;
+  text-transform: uppercase;
+}
+
+#send-request {
+  background: linear-gradient(-100deg, #4158d0, #11245A);
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      padding: 7px 14px;
+      transition: transform 0.2s ease-in-out;
+}
+#send-request:hover {
+      transform: scale(1.05);
+    }
+.services-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      margin: 20px 0;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin: 10px;
+  max-width: 300px;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card h2 {
+      color: #00215f;
+      font-size: 1.8rem;
+      margin-top: 15px;
+    }
+
+    .card p {
+      color: #6c757d;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+
+    .service-providers {
+      background: linear-gradient(-100deg, #4158d0, #11245A);
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      margin-top: 10px;
+      padding: 7px 14px;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .service-providers:hover {
+      transform: scale(1.05);
+    }
+    /* Responsiveness */
+    @media (max-width: 1091px) {
+      .service-container h1 {
+        font-size: 2em;
+      }
+      .card {
+        width: calc(50% - 20px);
+      }
+    }
+    @media (max-width: 767px) {
+      .service-container h1 {
+        font-size: 1.8em;
+      }
+      .card {
+        width: calc(50% - 20px);
+      }
+    }
+    @media (max-width: 536px) {
+      .service-container h1 {
+        font-size: 1.8em;
+      }
+      .card {
+        width: calc(100% - 60px);
+      }
+    }
+  </style>
+
+</head>
+<body>
+  <header class="header">
+    <div class="gridient">
+      <h1>Welcome to Our Services</h1>
+
+      <p>
+        We provide a wide range of top-notch services to cater to your needs.
+        Our team of experts is committed to delivering the best solutions for you.
+      </p>
+      <div class="buttons">
+        <a href="/services-detail" class="action-btn">Learn More</a>
+        <a href="/contact" class="action-btn">Contact Us</a>
+      </div>
+    </div>
+  </header>
+  <div class="service-container" id="service-container">
+    <h1>e-service offers</h1>
+    <div class="line"></div>
+  <div class="filter-container">
+    <input type="search" id="search-input" placeholder="Search services...">
+    <select id="category">
+      <option value="All">All</option>
+      <option value="homeServices">home service</option>
+      <option value="personalCare">personal care service</option>
+      <!-- Add your category options here -->
+    </select>
+  </div>
+  <div id="service-providers-container" class="service-providers-container">
+    <!-- Matching service providers will be dynamically added here -->
+  </div>
+  <div id="services" class="services-container">
+    <!-- Service cards will be dynamically added here -->
+  </div>
+
+  <div id="overlay" class="overlay">
+    <form id="request-form" class="request-form">
+      <h2>Request Service</h2>
+      <input type="text" id="selected-service" disabled>
+      <input type="text" id="inputLocation" placeholder="Enter your location">
+      <p  id="getLocationBtn" style="color:white;">get location</p>
+      <button type="submit" id="send-request">Send Request</button>
+      <button type="button" id="close-overlay">Close</button>
+    </form>
+
+  </div>
+  <%- include('partials/userFooter'); -%>
+  <script>
+     const searchInput = document.getElementById("search-input");
+        const categorySelect = document.getElementById("category");
+        const servicesContainer = document.getElementById("services");
+        const serviceNameInput = document.getElementById("selected-service");
+        const locationInput = document.getElementById("location");
+        const sendRequestButton = document.getElementById("send-request");
+        const closeOverlayButton = document.getElementById("close-overlay");
+        const getLocationBtn = document.getElementById("getLocationBtn");
+        const overlay = document.getElementById("overlay");
+        const requestForm = document.getElementById("request-form");
+
+    // Sample services array
+    const services = [
+      { name: "House Cleaning", about:"Professional and thorough cleaning services for your home, ensuring a clean and comfortable living environment.", category: "homeServices" },
+      { name: "Plumbing Service", about:"Reliable plumbing repairs and installations to keep your home's water systems running smoothly.", category: "homeServices" },
+      { name: "Lawn maintenance", about:"Expert lawn care services to keep your yard looking pristine and well-maintained.", category: "homeServices" },
+      { name: "Home Repair", about:"Skilled technicians to handle a wide range of home repair and maintenance tasks", category: "homeServices" },
+      { name: "Move Assistance", about:"Smooth and stress-free moving services to help you relocate to your new home.", category: "homeServices" },
+      { name: "Appliance Repair", about:"Prompt repairs for malfunctioning appliances to ensure they function efficiently.", category: "homeServices" },
+      { name: "Haircut and Styling", about:"Professional haircuts and styling services to keep you looking your best.", category: "personalCare" },
+      { name: "Skincare Treatment", about:"Pampering skincare treatments to keep your skin healthy and glowing.", category: "personalCare" },
+      { name: "Fitness Training", about:"Personalized fitness training programs to help you achieve your health goals.", category: "personalCare" },
+      { name: "Personal Shopping", about:"Expert assistance with shopping for clothing, accessories, and more.", category: "personalCare" },
+      { name: "Nail Care", about:"Nail treatments and manicures to keep your hands and feet well-groomed.", category: "personalCare" },
+      { name: "Makeup artistry", about:"Skillful makeup application for special events or everyday looks", category: "personalCare" },
+      // Add more services here
+    ];
+    
+
+    // Display services based on filter
+    function displayServices(filteredServices) {
+  servicesContainer.innerHTML = "";
+  filteredServices.forEach(service => {
+    const serviceCard = document.createElement("div");
+    serviceCard.classList.add("card"); // Add the "card" class here
+    serviceCard.innerHTML = `
+      <h2>${service.name}</h2>
+      <p>${service.about}</p>
+      <button type="" class="service-providers">See Service Providers</button>
+    `;
+    servicesContainer.appendChild(serviceCard);
+
+    const serviceProvidersButton = serviceCard.querySelector(".service-providers");
+    serviceProvidersButton.addEventListener("click", () => showOverlay(service.name));
+  });
+}
+
+
+    // Open overlay and pre-fill selected service
+    function showOverlay(serviceName) {
+      serviceNameInput.value = serviceName;
+      overlay.style.display = "flex";
+    }
+
+    // Close overlay
+    function closeOverlay() {
+      overlay.style.display = "none";
+      locationInput.value = "";
+    }
+
+    // Close overlay
+    function closeServices() {
+      services.style.display = "none";
+    }
+ 
+
+// Event listener for send request button
+sendRequestButton.addEventListener("click", async () => {
+    const selectedService = serviceNameInput.value;
+    const location = locationInput.value;
+
+    try {
+      // Send request to find matching service providers
+      const response = await fetch(`/find-service-providers?service=${selectedService}&location=${location}`);
+      const matchingServiceProviders = await response.json();
+
+      // Display matching service providers
+      const serviceProvidersContainer = document.getElementById("service-providers-container");
+      serviceProvidersContainer.innerHTML = ""; // Clear previous content
+
+      matchingServiceProviders.forEach(provider => {
+        const providerCard = document.createElement("div");
+        providerCard.classList.add("provider-card");
+
+        // You can access the provider's details like:
+        // provider.profilePicture, provider.brandName, provider.specialization
+
+        providerCard.innerHTML = `
+          <img src="${serviceProvider.profilePicture}" alt="${serviceProvider.brandName}">
+          <h3>${serviceProvider.brandName}</h3>
+          <p>${provider.specialization}</p>
+          <a href="/view-profile/${provider._id}" class="view-profile-btn">View Profile</a>
+          <button class="send-request-btn">Send Request</button>
+        `;
+
+        serviceProvidersContainer.appendChild(providerCard);
+      });
+
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
+    // Close overlay
+    closeOverlay();
+    closeServices();
+  });
+
+// Event listener for close overlay button
+closeOverlayButton.addEventListener("click", closeOverlay);
+
+// Additional event listener for the "Close" button inside the overlay
+const closeButton = overlay.querySelector("#close-overlay");
+closeButton.addEventListener("click", closeOverlay);
+
+    // Function to filter services based on search term and category
+    function filterServices() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const selectedCategory = categorySelect.value;
+
+      const filteredServices = services.filter(service =>
+        (service.name.toLowerCase().includes(searchTerm) || searchTerm === "") &&
+        (selectedCategory === "All" || service.category === selectedCategory)
+      );
+
+      displayServices(filteredServices);
+    }
+
+    // Event listeners for search input and category select
+    searchInput.addEventListener("input", filterServices);
+    categorySelect.addEventListener("change", filterServices);
+
+    // Display all services initially
+    filterServices();
+
+    getLocationBtn.addEventListener("click", ()=>{
+    if(navigator.geolocation){
+        getLocationBtn.innerText = "Allow to detect location";
+        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    }else{
+        getLocationBtn.innerText = "Your browser not support";
+    }
+});
+
+function onSuccess(position){
+    getLocationBtn.innerText = "Detecting your location...";
+    let {latitude, longitude} = position.coords;
+    fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=d33e29452ac640c19955a78f86bccd5b`)
+    .then(response => response.json()).then(response =>{
+        let allDetails = response.results[0].components;
+        console.table(allDetails);
+        let {state, city, road} = allDetails;
+        inputLocation.value = `${state} ,${city},${road}`;
+        getLocationBtn.innerText = "Gotten location";
+    }).catch(()=>{
+        button.innerText = "Something went wrong";
+    });
+}
+
+function onError(error){
+    if(error.code == 1){
+      getLocationBtn.innerText = "You denied the request";
+    }else if(error.code == 2){
+      getLocationBtn.innerText = "Location is unavailable";
+    }else{
+      getLocationBtn.innerText = "!Something went wrong";
+    }
+  getLocationBtn.setAttribute("disabled", "true");
+}
+    
+  </script>
+
+</script>
+</body>
+</html>

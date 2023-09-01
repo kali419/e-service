@@ -1,0 +1,87 @@
+<%- include('partials/userHeader'); -%>
+<link rel="stylesheet" href="/stylesheet/css/boxicons.min.css">
+<style>
+
+.profile-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 20px;
+}
+.icon {
+    font-size: 100px;
+    text-align: center;
+    color: #11245A;
+    user-select: none;
+  }
+.profile-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-header h1 {
+  color: #333;
+}
+
+.profile-details {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.profile-details p {
+  margin: 10px 0;
+  color: #333;
+}
+
+.back-button {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.back-button a {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.back-button a:hover {
+  background-color: #555;
+}
+
+
+</style>
+
+<div class="profile-container">
+  <div class="icon">
+    <i class='bx bxs-user'></i>
+  </div>
+  <div class="profile-header">
+    <h1><%= user.userName %> Profile</h1>
+  </div>
+  <div class="profile-details">
+    <p><strong>User name: </strong> <%= user.email %></p>
+  </div>
+  <div class="profile-details">
+    <p><strong>Email: </strong> <%= user.email %></p>
+  </div>
+  <div class="profile-details">
+    <p><strong>Phone number: </strong> <%= user.phoneNumber %></p>
+  </div>
+    <div class="back-button">
+    <a href="javascript:history.back()">Back</a>
+  </div>
+</div>
+
+<script>
+  const userProfileLink = document.createElement("a");
+  userProfileLink.href = `/view-profile/${user._id}`;
+  userProfileLink.textContent = "View Profile";
+</script>
+<%- include('partials/userFooter'); -%>
