@@ -39,19 +39,6 @@ router.get("/logout", authController.logout_get);
 router.get("/successfullyCreated", async (req, res) => {
   res.write("Your Account is created Successfully");
 });
-router.get("/allServiceProviders", async (req, res) => {
-  try {
-    const allServiceProviders = await serviceProvider.find();
 
-    // Fetch user information from the database using the user's ID from req.user
-    const user = await User.find();
-  
-
-    res.render('allServiceProviders', { allServiceProviders, user });
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
 
 module.exports = router;

@@ -1,10 +1,94 @@
 <%- include('partials/userHeader'); -%>
-<div style="display: flex; justify-content: space-between;">
-        <% allServiceProviders.forEach(allServiceProviders => { %>
-          <div style="padding: 20px; background-color: green; width: 300px;">
-              <h5><%= allServiceProviders.email %></h5>
-              <p><%=   allServiceProviders.specialization %></p>
-          </div>
-    <% }); %>  
+<style>
+
+  .service-providers-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .card {
+    width: calc(33.33% - 20px); 
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .btn-follow {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-follow:hover {
+    background-color: #0056b3;
+  }
+
+  /* Card body styles */
+  .card-body {
+    padding: 15px;
+  }
+
+  .name {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  .service {
+    font-size: 1.2rem;
+    margin: 5px 0;
+    color: #555;
+  }
+
+  .specialization {
+    font-size: 1rem;
+    color: #777;
+  }
+
+  /* Media query for responsive design */
+  @media (max-width: 768px) {
+    .service-providers-container {
+      flex-direction: column;
+    }
+
+    .card {
+      width: 100%;
+    }
+  }
+</style>
+
+
+</style>
+<div class="service-providers-container">
+  <% allServiceProviders.forEach(serviceProvider => { %>
+    <div class="card">
+        <div class="card-header" style="background-image: url(/uploads/<%=serviceProvider.profilePicture%>);">
+    
+            <div class="card-header">
+            <a href="<%=serviceProvider._id %>" class="btn-follow"><span class="sr-only">view details</span></a>
+            </div>
+    
+        </div>
+    
+        <div class="card-body">
+        <h2 class="name"><%=serviceProvider.brandName%></h2>
+        <h4 class="service"><%=serviceProvider.service%></h4>
+        <div class="specialization"><%=serviceProvider.specialization %></div>
+    
+        </div>
+    </div>
+  <% }); %>  
 </div>
 <%- include('partials/userFooter'); -%>

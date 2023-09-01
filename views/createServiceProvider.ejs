@@ -30,14 +30,13 @@
       <input type="text" id="phone" name="phoneNumber" required> 
       <label>Phone number</label>
     </div>
-    <div class="form">
+    <div class="field">
       <input type="text" name="location" id="location" placeholder="enter your location">
-      <button class="locate" id="getLocationBtn">get location</button>
       <label>Location</label>
     </div>
     <div class="field">
       <input type="text" id="name" name="specialization" required>
-      <label>Specialization</label>
+      <label>Discription or Bio</label>
     </div>
     <div class="">
       <input type="file" id="certificate" name="certificate" required>  
@@ -45,12 +44,18 @@
     </div>
     <div class="form">
       <label for="name">service</label>
-      <select name="service" id="">
-        <option value="service">house cleaning</option>
-        <option value="service">Lawn maintenance</option>
-        <option value="service">Plumbing Services</option>
-        <option value="service">Home Repair</option>
-      </select> 
+      <select style="
+        padding: 6px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+      " name="service" id="">
+        <option name="service">house cleaning</option>
+        <option name="service">Lawn maintenance</option>
+        <option name="service">Plumbing Services</option>
+        <option name="service">Home Repair</option>
+        <option name="service">Errands</option>
+      </select>  
     </div>
    <div class="field">
     <input type="submit" class="btn" value="Submit">
@@ -61,59 +66,44 @@
   
 <script>
 
-    const button = document.querySelector("#getLocationBtn");
-    const inputLocation = document.querySelector("#location");
-    const signupForm = document.querySelector("#signupForm");
+    const button = document.getElementById("location");
+    const signupForm = document.getElementById("#signupForm");
 
-    signupForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    try {
-      const res = await fetch('/createServiceProvider', { 
-        method: 'POST', 
-      });
-
-    }
-    catch (err) {
-      console.log(err);
-    }
-  });
-
-  
-inputLocation.addEventListener("click", ()=>{
+button.addEventListener("click", ()=>{
     if(navigator.geolocation){
-        inputLocation.value = "Allow to detect location";
+        button.value = "Allow to detect location";
         navigator.geolocation.getCurrentPosition(onSuccess, onError);
     }else{
-      inputLocation.value = "Your browser not support";
+        button.value = "Your browser not support";
     }
 });
 
 function onSuccess(position){
-  inputLocation.value = "Detecting your location...";
+    button.value = "Detecting your location...";
     let {latitude, longitude} = position.coords;
-    fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=d33e29452ac640c19955a78f86bccd5b`)
+    fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=ff5bb39b31c5449ba6f9b57c7fe5376a`)
     .then(response => response.json()).then(response =>{
         let allDetails = response.results[0].components;
         console.table(allDetails);
         let {state, city, road} = allDetails;
-        inputLocation.value = `${state} ,${city},${road}`;
-       
+        button.value = `${state} ,${city},${road}`;
     }).catch(()=>{
-      inputLocation.value = "Something went wrong";
+        button.value = "Something went wrong";
     });
 }
 
 function onError(error){
     if(error.code == 1){
-      inputLocation.value = "You denied the request";
+        button.innerText = "You denied the request";
     }else if(error.code == 2){
-      inputLocation.value = "Location is unavailable";
+        button.innerText = "Location is unavailable";
     }else{
-      inputLocation.value = "!Something went wrong";
+        button.innerText = "Something went wrong";
     }
-    inputLocation.value("disabled", "true");
+    button.setAttribute("disabled", "true");
 }
+
+  
 
 
 signupForm.addEventListener("submit", async (event) => {
@@ -128,6 +118,7 @@ signupForm.addEventListener("submit", async (event) => {
 
     if (response.ok) {
       // Handle successful response (optional)
+      location.assign('/login');
       console.log("Form submitted successfully");
       // You can redirect the user to a new page here
     } else {

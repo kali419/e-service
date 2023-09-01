@@ -277,6 +277,16 @@
       <!-- Add your category options here -->
     </select>
   </div>
+  <% allServiceProviders.forEach(serviceProvider => { %>
+    <div class="service-provider-card">
+      <div class="image">
+      </div>  
+      <h5><%= serviceProvider.brandName %></h5>
+      <h5><%= serviceProvider.email %></h5>
+      <p><%= serviceProvider.specialization %></p>
+    </div>
+  <% }); %>  
+</div>
   <a href="/allServiceProviders" class="btn">view all service provider</a>
   <%- include('partials/userFooter'); -%>
   <script>
