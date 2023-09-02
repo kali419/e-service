@@ -140,7 +140,7 @@
 .profile-container {
   background-color: #fff;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 5px;
 }
 
@@ -149,9 +149,8 @@
   margin-bottom: 20px;
 }
 
-.profile-header h1 {
-  color: #333;
-  margin: 0;
+.profile-header h2 {
+  margin-top: 20px ;
 }
 
 .profile-details {
@@ -161,7 +160,6 @@
 }
 
 .profile-details h5 {
-  margin: 10px 0;
   color: #333;
 }
 
@@ -200,7 +198,7 @@
       <h1>Welcome to Our Services</h1>
 
       <p>
-        We provide a wide range of top-notch services to cater to your needs.
+        We provide a wide range of top-notch service providers to cater to your needs.
         Our team of experts is committed to delivering the best solutions for you.
       </p>
       <div class="buttons">
@@ -231,7 +229,8 @@
               <h2><%= serviceProvider.brandName %></h2>
           </div>
           <div class="profile-details">
-            <h5><strong>Specialization:</strong> <%= serviceProvider.specialization %></h5>
+            <h3><strong></strong> <%= serviceProvider.service %></h3>
+            <h5><strong></strong> <%= serviceProvider.specialization %></h5>
           </div>
           <div class="card-view">
             <a href="/viewServiceProviderDetails/<%=serviceProvider._id %>" class="btn-follow"><span class="sr-only">view details</span></a>

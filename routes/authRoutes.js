@@ -2,7 +2,6 @@ const { Router } = require("express");
 const authController = require("../controllers/authController");
 const multer = require("multer");
 const path = require("path");
-const { requireAuth, checkUser } = require("../middleware/authMiddleware");
 
 
 const storage = multer.diskStorage({
@@ -28,7 +27,7 @@ router.get("/signup", authController.signup_get);
 router.post("/signup", authController.signup_post);
 router.get("/login", authController.login_get);
 router.post("/login", authController.login_post);
-router.get("/createServiceProvider", requireAuth, authController.createServiceProvider_get);
+router.get("/createServiceProvider", authController.createServiceProvider_get);
 router.post("/createServiceProvider", upload.fields([{ name: "profilePicture" }, { name: "certificate" }]),authController.createServiceProvider_post);
 router.get("/view_profile/:id", authController.view_profile_get);
 router.get("/contact", authController.contact_get);

@@ -62,7 +62,6 @@ app.get("/viewServiceProviderDetails/:id", requireAuth, async (req, res) => {
     }
 
     res.render('viewServiceProviderDetails', { serviceProviders });
-    console.log(serviceProviders);
   } catch (error) {
     res.status(500).json({ message: 'There was an error while retrieving service provider profile' });
     console.log(error);
