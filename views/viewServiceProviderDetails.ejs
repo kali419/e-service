@@ -139,14 +139,14 @@
         <div class="profile-details">
             <p><strong>Phone number: </strong> <%= serviceProviders.location %></p>
         </div>
-        <a href="downloads:<%= serviceProviders.certificate %>" download class="download-certificate">
+        <a href="/uploads/<%= serviceProviders.certificate %>" download="" > download class="download-certificate">
           <button class="download-certificate-button"><i class='bx bx-download'></i> Download Certificate</button>
       </a>
     </div>
 </div>
 <div class="back-button">
     <a href="javascript:history.back()"><i class='bx bx-arrow-back'></i> Back</a>
-</div>
+</div> cv
 
 <script>
   const userProfileLink = document.createElement("a");
