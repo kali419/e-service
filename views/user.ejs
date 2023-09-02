@@ -219,23 +219,22 @@
       <!-- Add your category options here -->
     </select>
   </div>
-  <div class="service-provider-container">
-    <% for (let i = 0; i < 6; i++) { %>
-      <% const serviceProvider = allServiceProviders[i]; %>
+  <div class="service-providers-container">
+    <% allServiceProviders.forEach(serviceProvider => { %>
       <div class="service-provider-card">
         <div class="profile-container">
-          <div class="card-header" style="background-image: url(/uploads/<%= serviceProvider.profilePicture %>);"></div>
+          <div class="card-header" style="background-image: url(/uploads/<%=serviceProvider.profilePicture%>);"></div>
           <div class="profile-header">
-              <h2><%= serviceProvider.brandName %></h2>
+            <h2><%= serviceProvider.brandName %></h2>
           </div>
           <div class="profile-details">
-            <h3> <%= serviceProvider.service %></h3>
-            <h5> <%= serviceProvider.specialization %></h5>
+            <h3><strong></strong> <%= serviceProvider.service %></h3>
+            <h5><strong></strong> <%= serviceProvider.specialization %></h5>
             <p style="margin: 5px; font-size: 13px;"> <%= serviceProvider.location %></p>
           </div>
           <div class="card-view">
-            <a href="/viewServiceProviderDetails/<%=serviceProvider._id %>" class="btn-follow"><span class="sr-only">view details</span></a>
-            </div>
+            <a href="/viewServiceProviderDetails/<%=serviceProvider._id %>" class="btn-follow"><span class="sr-only">View Details</span></a>
+          </div>
           <!-- Icons using Boxicons -->
           <div class="icons">
             <a href="mailto:<%= serviceProvider.email %>?subject=Service Inquiry" class="icon">
@@ -244,15 +243,17 @@
             <a href="tel:<%= serviceProvider.phoneNumber %>" class="icon">
               <i class='bx bx-phone'></i> <!-- Phone icon -->
             </a>
-            <a href="downloads:<%= serviceProvider.certificate %>" class="icon">
+            <a href="<%= serviceProvider.certificate %>" class="icon">
               <i class='bx bx-download'></i> <!-- Download icon -->
             </a>
           </div>
+          <div class="card-view">
+            <a href="" class="btn-follow"><span class="sr-only">Send Request</span></a>
+          </div>
         </div>
       </div>
-    <% } %>
+    <% }); %>
   </div>
-  
   <a href="/allServiceProviders" class="btn-follow">View All Service Providers</a>
   
   <%- include('partials/userFooter'); -%>
