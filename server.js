@@ -52,6 +52,23 @@ app.get("/allServiceProviders", requireAuth, async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+app.get("/services", requireAuth, (req, res) => res.render("services"));
+
+app.get("/viewServiceProviderDetails/:id", requireAuth, async (req, res) => {
+  try {
+    const serviceProviders = await serviceProvider.findById(req.params.id);
+    if (!serviceProviders) {
+      return res.status(404).json({ message: "can't find service provider details" });
+    }
+
+    res.render('viewServiceProviderDetails', { serviceProviders });
+    console.log(serviceProviders);
+  } catch (error) {
+    res.status(500).json({ message: 'There was an error while retrieving service provider profile' });
+    console.log(error);
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`successfully running on PORT ${port}`);

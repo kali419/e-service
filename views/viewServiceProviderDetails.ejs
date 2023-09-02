@@ -1,0 +1,155 @@
+<%- include('partials/userHeader'); -%>
+<link rel="stylesheet" href="/stylesheet/css/boxicons.min.css">
+<style>
+
+.container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px;
+        }
+
+        .profile-container {
+            max-width: 400px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .details {
+            max-width: 600px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .card-header {
+            height: 200px;
+            width: 200px;
+            border-radius: 100px;
+            background-size: cover;
+            background-position: center;
+            margin: 0 auto 20px;
+        }
+
+        .get-in-touch {
+          display: flex;
+          justify-content: space-around;
+        }
+        .call-button, .send-mail-button, .download-certificate-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .call-button:hover, .send-mail-button:hover, .download-certificate-button:hover {
+            background-color: #0056b3;
+        }
+
+        .profile-details {
+            text-align: start;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .profile-header h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .profile-details p {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .back-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-button a {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .back-button a:hover {
+            background-color: #555;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .profile-container, .details {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="profile-container">
+        <div class="card-header" style="background-image: url(/uploads/<%=serviceProviders.profilePicture%>);"></div>
+        <div class="profile-header">
+            <h1><%= serviceProviders.brandName %></h1>
+        </div>
+        <div class="profile-details">
+          <h5><strong></strong><%= serviceProviders.specialization %></h5>
+      </div>
+      <div class="get-in-touch">
+        <a href="tel:<%= serviceProviders.phoneNumber %>">
+            <button class="call-button"><i class='bx bx-phone'></i> Call</button>
+        </a>
+        <a href="mailto:<%= serviceProviders.email %>?subject=Service Inquiry" class="email-button">
+            <button class="send-mail-button"><i class='bx bx-envelope'></i> Send Email</button>
+        </a>
+      </div>
+    </div>
+    <div class="details">
+        <div class="profile-details">
+          <h1><strong></strong> Service: <%= serviceProviders.service %></1>
+        </div>
+        <div class="profile-details">
+            <p><strong>User name: </strong> <%= serviceProviders.email %></p>
+        </div>
+        <div class="profile-details">
+            <p><strong>Email: </strong> <%= serviceProviders.phoneNumber %></p>
+        </div>
+        <div class="profile-details">
+            <p><strong>Phone number: </strong> <%= serviceProviders.location %></p>
+        </div>
+        <a href="downloads:<%= serviceProviders.certificate %>" download class="download-certificate">
+          <button class="download-certificate-button"><i class='bx bx-download'></i> Download Certificate</button>
+      </a>
+    </div>
+</div>
+<div class="back-button">
+    <a href="javascript:history.back()"><i class='bx bx-arrow-back'></i> Back</a>
+</div>
+
+<script>
+  const userProfileLink = document.createElement("a");
+  userProfileLink.href = `/view-profile/${serviceProvider._id}`;
+  userProfileLink.textContent = "viewServiceProviderDetails";
+</script>
+<%- include('partials/userFooter'); -%>

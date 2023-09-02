@@ -1,252 +1,196 @@
 <%- include('partials/userHeader'); -%>
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <style>
-    .header {
-      background: linear-gradient(to right, #11245A, #349dff);
-      color: #fff;
-      padding: 100px 20px;
-      text-align: center;
-    }
-    .header h1 {
-      margin-top: 20px;
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
+.header {
+            background: linear-gradient(to right, #11245A, #349dff);
+            color: #fff;
+            padding: 100px 20px;
+            text-align: center;
+        }
 
-    .header p {
-      font-size: 16px; 
-      max-width: 750px;
-      margin: 18px auto;
-    }
-    .header .buttons {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-    }
+        .header h1 {
+            margin-top: 20px;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
 
-    .header .action-btn {
-      background-color: rgb(15, 35, 100);
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 20px;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: scale 0.2s ease;
-    }
+        .header p {
+            font-size: 16px;
+            max-width: 750px;
+            margin: 18px auto;
+        }
 
-    .header .action-btn:hover {
-      scale: 1.05;
-    }
+        .header .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
 
-    .header .action-btn:active {
-      scale: 0.95;
-    }
+        .header .action-btn {
+            background-color: rgb(15, 35, 100);
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: scale 0.2s ease;
+        }
 
-    /* Filter container styles */
-    .filter-container {
-      text-align: center;
-    }
+        .header .action-btn:hover {
+            transform: scale(1.05);
+        }
 
-    /* Search input styles */
-    #search-input {
-      padding: 6px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
+        .header .action-btn:active {
+            transform: scale(0.95);
+        }
 
-    /* Category select styles */
-    label {
-      font-size: 16px;
-      margin-right: 10px;
-    }
+        /* Filter container styles */
+        .filter-container {
+            text-align: center;
+        }
 
-    #category {
-      padding: 6px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 14px;
-    }
+        /* Search input styles */
+        #search-input {
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
 
-    
-    .service-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      flex-direction: column;
-      background-color: #fafafa;
-      padding: 20px;
-    }
-    .service-container h1 {
-      font-size: 2.5em;
-      margin: 10px 0;
-      font-weight: 600;
-      color: #00215f;
-      text-align: center;
-    }
-    .line {
-      width: 18%;
-      border: 2px solid #00215f;
-      border-radius: 5px;
-      margin-bottom: 40px;
-    }
-    .line {
-      width: 18%;
-      border: 2px solid #00215f;
-      border-radius: 5px;
-      margin-bottom: 40px;
-    }
-    .item-container p {
-      font-size: 20px;
-      color: #6c757d;
-    }
-    /* Overlay CSS */
-.overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
-}
+        /* Category select styles */
+        label {
+            font-size: 16px;
+            margin-right: 10px;
+        }
 
-.overlay-content {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
-  text-align: center;
-}
+        #category {
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
 
-.overlay h2 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-  color: #fafafa;
-}
+        .service-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
+            background-color: #fafafa;
+            padding: 20px;
+        }
 
-.overlay form {
+        .service-container h1 {
+            font-size: 2.5em;
+            margin: 10px 0;
+            font-weight: 600;
+            color: #00215f;
+            text-align: center;
+        }
+
+        .line {
+            width: 18%;
+            border: 2px solid #00215f;
+            border-radius: 5px;
+            margin-bottom: 40px;
+        }
+        .service-provider-container {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 50px;
 }
 
-.overlay label {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.overlay input {
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #000;
+.service-provider-card {
+  max-width: calc(33.33% - 20px); 
+  box-sizing: border-box;
+  border: 1px solid #ddd;
   border-radius: 5px;
+  overflow: hidden;
 }
 
-#selected-service {
-  background-color: gray;
-  font-size: 14px;
-  color: #f3f3f3;
-  text-transform: uppercase;
+.card-header {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
 }
 
-#send-request {
-  background: linear-gradient(-100deg, #4158d0, #11245A);
-      border: none;
-      border-radius: 5px;
-      color: #fff;
-      cursor: pointer;
-      font-size: 1rem;
-      font-weight: bold;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      padding: 7px 14px;
-      transition: transform 0.2s ease-in-out;
-}
-#send-request:hover {
-      transform: scale(1.05);
-    }
-.services-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      margin: 20px 0;
+.card-view {
+  background-size: cover;
+  background-position: center;
 }
 
-.card {
+.icon {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 24px;
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.icon:hover {
+  color: #0056b3;
+}
+
+.profile-container {
   background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-  padding: 20px;
-  margin: 10px;
-  max-width: 300px;
-  text-align: center;
-  transition: transform 0.2s ease-in-out;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  padding: 5px;
 }
 
-    .card:hover {
-      transform: scale(1.05);
-    }
+.profile-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-    .card h2 {
-      color: #00215f;
-      font-size: 1.8rem;
-      margin-top: 15px;
-    }
+.profile-header h1 {
+  color: #333;
+  margin: 0;
+}
 
-    .card p {
-      color: #6c757d;
-      font-size: 13px;
-      margin-top: 10px;
-    }
+.profile-details {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+}
 
-    .service-providers {
-      background: linear-gradient(-100deg, #4158d0, #11245A);
-      border: none;
-      border-radius: 5px;
-      color: #fff;
-      cursor: pointer;
-      font-size: 1rem;
-      font-weight: bold;
-      margin-top: 10px;
-      padding: 7px 14px;
-      transition: transform 0.2s ease-in-out;
-    }
+.profile-details h5 {
+  margin: 10px 0;
+  color: #333;
+}
 
-    .service-providers:hover {
-      transform: scale(1.05);
-    }
-    /* Responsiveness */
-    @media (max-width: 1091px) {
-      .service-container h1 {
-        font-size: 2em;
-      }
-      .card {
-        width: calc(50% - 20px);
-      }
-    }
-    @media (max-width: 767px) {
-      .service-container h1 {
-        font-size: 1.8em;
-      }
-      .card {
-        width: calc(50% - 20px);
-      }
-    }
-    @media (max-width: 536px) {
-      .service-container h1 {
-        font-size: 1.8em;
-      }
-      .card {
-        width: calc(100% - 60px);
-      }
-    }
+.btn-follow {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-follow:hover {
+  background-color: #0056b3;
+}
+
+/* Media query for responsive design */
+@media (max-width: 768px) {
+  .service-provider-container {
+    flex-direction: column;
+  }
+
+  .service-provider-card {
+    max-width: 100%;
+  }
+}
+
   </style>
 
 </head>
@@ -266,7 +210,7 @@
     </div>
   </header>
   <div class="service-container" id="service-container">
-    <h1>e-service offers</h1>
+    <h1>e-service Providers</h1>
     <div class="line"></div>
   <div class="filter-container">
     <input type="search" id="search-input" placeholder="Search services...">
@@ -277,21 +221,38 @@
       <!-- Add your category options here -->
     </select>
   </div>
-  <% allServiceProviders.forEach(serviceProvider => { %>
-    <div class="service-provider-card">
-      <div class="image">
-      </div>  
-      <h5><%= serviceProvider.brandName %></h5>
-      <h5><%= serviceProvider.email %></h5>
-      <p><%= serviceProvider.specialization %></p>
-    </div>
-  <% }); %>  
-</div>
-  <a href="/allServiceProviders" class="btn">view all service provider</a>
+  <div class="service-provider-container">
+    <% for (let i = 0; i < 6; i++) { %>
+      <% const serviceProvider = allServiceProviders[i]; %>
+      <div class="service-provider-card">
+        <div class="profile-container">
+          <div class="card-header" style="background-image: url(/uploads/<%=serviceProvider.profilePicture%>);"></div>
+          <div class="profile-header">
+              <h2><%= serviceProvider.brandName %></h2>
+          </div>
+          <div class="profile-details">
+            <h5><strong>Specialization:</strong> <%= serviceProvider.specialization %></h5>
+          </div>
+          <div class="card-view">
+            <a href="/viewServiceProviderDetails/<%=serviceProvider._id %>" class="btn-follow"><span class="sr-only">view details</span></a>
+            </div>
+          <!-- Icons using Boxicons -->
+          <div class="icons">
+            <a href="mailto:<%= serviceProvider.email %>?subject=Service Inquiry" class="icon">
+              <i class='bx bx-envelope'></i> <!-- Email icon -->
+            </a>
+            <a href="tel:<%= serviceProvider.phoneNumber %>" class="icon">
+              <i class='bx bx-phone'></i> <!-- Phone icon -->
+            </a>
+            <a href="downloads:<%= serviceProvider.certificate %>" class="icon">
+              <i class='bx bx-download'></i> <!-- Download icon -->
+            </a>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  </div>
+  
+  <a href="/allServiceProviders" class="btn-follow">View All Service Providers</a>
+  
   <%- include('partials/userFooter'); -%>
-  <script>
-    
-  </script>
-</script>
-</body>
-</html>

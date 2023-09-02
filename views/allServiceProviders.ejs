@@ -1,11 +1,11 @@
 <%- include('partials/userHeader'); -%>
 <style>
-
   .service-providers-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 20px;
+    padding: 50px;
   }
 
   .card {
@@ -77,7 +77,7 @@
         <div class="card-header" style="background-image: url(/uploads/<%=serviceProvider.profilePicture%>);">
     
             <div class="card-header">
-            <a href="<%=serviceProvider._id %>" class="btn-follow"><span class="sr-only">view details</span></a>
+            <a href="/viewServiceProviderDetails/<%=serviceProvider._id %>" class="btn-follow"><span class="sr-only">view details</span></a>
             </div>
     
         </div>
