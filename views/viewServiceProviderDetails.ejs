@@ -40,12 +40,18 @@
             margin: 0 auto 20px;
         }
 
+        .card-header h1 , h5 {
+            font-size: 15px;
+            color: #333;
+            text-align: center;
+        }
+
         .get-in-touch {
           display: flex;
           justify-content: space-around;
         }
         .call-button, .send-mail-button, .download-certificate-button {
-            padding: 10px 20px;
+            padding: 6px 14px;
             background-color: #007bff;
             color: #fff;
             border: none;
@@ -72,6 +78,11 @@
             margin-bottom: 20px;
         }
 
+        .profile-details h1 {
+            font-size: 30px;
+            color: #333;
+            text-align: center;
+        }
         .profile-details p {
             margin: 10px 0;
             color: #333;
@@ -128,7 +139,7 @@
     </div>
     <div class="details">
         <div class="profile-details">
-          <h1><strong></strong> Service: <%= serviceProviders.service %></1>
+          <h1><strong></strong><%= serviceProviders.service %></1>
         </div>
         <div class="profile-details">
             <p><strong>User name: </strong> <%= serviceProviders.email %></p>
@@ -147,6 +158,8 @@
 <div class="back-button">
     <a href="javascript:history.back()"><i class='bx bx-arrow-back'></i> Back</a>
 </div>
+
+<div class="profile-details"></div>
 
 <script>
   const userProfileLink = document.createElement("a");

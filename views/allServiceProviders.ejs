@@ -4,78 +4,98 @@
 
 /* Header styles */
 .header {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/img/fast-service-23279692.webp);
-    background-size: cover;
-    color: #fff;
-    text-align: center;
-    padding: 100px 0;
-}
+            background: linear-gradient(to right, #11245A, #349dff);
+            color: #fff;
+            padding: 100px 20px;
+            text-align: center;
+        }
 
-.header-content {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-}
+        .header h1 {
+            margin-top: 20px;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
 
-.header h1 {
-    font-size: 36px;
-    margin-bottom: 20px;
-}
+        .header p {
+            font-size: 16px;
+            max-width: 750px;
+            margin: 18px auto;
+        }
 
-.header p {
-    font-size: 18px;
-    margin-bottom: 30px;
-}
+        .header .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
 
-.action-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-right: 10px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
+        .header .action-btn {
+            background-color: rgb(15, 35, 100);
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: scale 0.2s ease;
+        }
 
-.action-btn:hover {
-    background-color: #0056b3;
-}
+        .header .action-btn:hover {
+            transform: scale(1.05);
+        }
 
-/* Service Providers section styles */
-.service-providers {
-    padding: 50px 0;
-    text-align: center;
+        .header .action-btn:active {
+            transform: scale(0.95);
+        }
 
-}
+        .service-providers {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: #fafafa;
+            padding: 20px;
+        }
+        .service-providers h1 {
+            font-size: 2.5em;
+            margin: 10px 0;
+            font-weight: 600;
+            color: #00215f;
+            text-align: center;
+        }
 
-.service-providers h1 {
-    font-size: 36px;
-    margin-bottom: 20px;
-}
+        .line {
+            width: 18%;
+            border: 2px solid #00215f;
+            border-radius: 5px;
+            margin: auto;
+        }
 
-.line {
-    width: 50px;
-    height: 3px;
-    background-color: #007bff;
-    margin: 0 auto 30px;
-}
+        /* Filter container styles */
+        .filter-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+        /* Search input styles */
+        #search-input {
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
 
-.filter-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 40px;
-}
+        /* Category select styles */
+        label {
+            font-size: 16px;
+            margin-right: 10px;
+        }
 
-#search-input,
-#category {
-    padding: 10px;
-    margin-right: 20px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
+        #category {
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
 
   /* Service providers container styles */
   .service-providers-container {
@@ -85,7 +105,7 @@
     gap: 20px;
     padding: 50px;
     text-align: center;
-    background-color: #fff;
+    background-color: #fafafa;
   }
 
   .service-provider-card {
@@ -154,8 +174,18 @@
     margin-bottom: 20px;
   }
 
-  .profile-details h3,
+
+  .profile-details h3 {
+    font-size: 125px;
+    color: #333;
+  }
+
+  .profile-details h3 {
+    font-size: 19px;
+    color: #333;
+  }
   .profile-details h5 {
+    font-size: 15px;
     color: #333;
   }
 
@@ -181,8 +211,32 @@
       flex-direction: column;
     }
 
+    .service-providers h1 {
+            font-size: 2em;
+        }
+
     .service-provider-card {
       flex-basis: 100%;
+    }
+  }
+  @media (max-width: 375px) {
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .header p {
+        font-size: 14px;
+    }
+    .header .action-btn {
+        font-size: 0.7em;
+    }
+
+    .service-providers h1 {
+            font-size: 1.7em;
+        }
+    .service-providers-container {
+
+        padding: 50px 10px;
     }
   }
 </style>
@@ -192,13 +246,14 @@
       <h1>Welcome to Our Services</h1>
       <p>We provide a wide range of top-notch service providers to cater to your needs. Our team of experts is committed to delivering the best solutions for you.</p>
       <div class="buttons">
-          <a href="/services-detail" class="action-btn">Learn More</a>
+          <a href="#" class="action-btn">Learn More</a>
           <a href="/contact" class="action-btn">Contact Us</a>
       </div>
   </div>
 </header>
 
 <!-- Service Providers Section -->
+<div class="service-container" id="service-container"></div>
 <section class="service-providers">
   <h1>e-service Providers</h1>
   <div class="line"></div>
@@ -216,17 +271,18 @@
   <% allServiceProviders.forEach(serviceProvider => { %>
     <div class="service-provider-card">
       <div class="profile-container">
-        <div class="card-header" style="background-image: url(/uploads/<%=serviceProvider.profilePicture%>);"></div>
+        <div class="card-header" style="background-image: url(/uploads/<%=serviceProvider.profilePicture%>); border-radius: 5px;"></div>
         <div class="profile-header">
           <h2><%= serviceProvider.brandName %></h2>
         </div>
         <div class="profile-details">
           <h3><strong></strong> <%= serviceProvider.service %></h3>
+          <div class="profile-details"></div>
           <h5><strong></strong> <%= serviceProvider.specialization %></h5>
           <p style="margin: 5px; font-size: 13px;"> <%= serviceProvider.location %></p>
         </div>
         <div class="card-view">
-          <a href="/viewServiceProviderDetails/<%=serviceProvider._id %>" class="btn-follow"><span class="sr-only">View Details</span></a>
+          <a href="/viewServiceProviderDetails/<%=serviceProvider._id %>" class="btn-follow"><span class="sr-only">View profile</span></a>
         </div>
         <!-- Icons using Boxicons -->
         <div class="icons">
@@ -240,12 +296,12 @@
             <i class='bx bx-download'></i> <!-- Download icon -->
           </a>
         </div>
-        <div class="card-view">
-          <a href="" class="btn-follow"><span class="sr-only">Send Request</span></a>
-        </div>
+        
       </div>
     </div>
   <% }); %>
 </div>
+
+<div class="profile-details"></div>
 
 <%- include('partials/userFooter'); -%>
