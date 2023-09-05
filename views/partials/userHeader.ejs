@@ -6,7 +6,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>E service</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>E SERVICE</title>
     <style>
       /* Google Fonts - Poppins */
       @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
@@ -266,7 +267,7 @@
     <nav class="nav">
       <i class="uil uil-bars navOpenBtn"></i>
       <a href="#" class="logo">E SERVICES</a>
-      <p class="userName">Hello <%= user.userName %></p>
+      <p class="userName">Hello, <%= user.userName %></p>
 
       <ul class="nav-links">
         <i class="uil uil-times navCloseBtn"></i>
@@ -276,7 +277,7 @@
         <li><a href="/contact">Contact Us</a></li>
         <ul class="none">
           <li><a href="/view_profile/<%= user._id %>">view profile</a></li>
-          <li><a href="createServiceProvider">service provider profile</a></li>
+          <li><a href="getStartedAsAServiceProvider">Become a service provider</a></li>
           <li class="logout"><a href="logout">Log out</a></li>
         </ul>
         <li><a href=""></a></li>
@@ -288,7 +289,7 @@
         <input type="text" placeholder="Search here..." />
       </div>
       <div class="drop">
-        <p class="username">welcome <%= user.userName %></p>
+        <p class="username">welcome, <%= user.userName %></p>
         <div class="dropdown">
           <i class="uil uil-user userIcon"></i>
           <div class="dropdown-content">
@@ -298,7 +299,7 @@
             <a href="/allServiceProviders" class="link-to"
               >view all service providers</a
             ><br />
-            <a href="/createServiceProvider" class="link-to"
+            <a href="/getStartedAsAServiceProvider" class="link-to"
               >become a service provider</a
             ><br />
             <a href="/logout" class="link-to">Log Out</a>

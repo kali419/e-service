@@ -125,7 +125,7 @@ module.exports.createServiceProvider_post = async (req, res) => {
 
     await newServiceProvider.save();
 
-    res.redirect("/user");
+    res.redirect("/successfullyCreatedYourServiceProviderProfile");
   } catch (error) {
     console.error(error);
     res.status(500).send("An error occurred");

@@ -52,7 +52,14 @@ app.get("/allServiceProviders", requireAuth, async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
-app.get("/services", requireAuth, (req, res) => res.render("services"));
+
+app.get("/getStarted", requireAuth, (req, res) => res.render("getStarted"));
+
+app.get("/getStartedAsAServiceProvider", requireAuth, (req, res) => res.render("getStartedAsAServiceProvider"));
+
+app.get("/successfullyCreatedAnAccount", requireAuth, (req, res) => res.render("successfullyCreatedAnAccount"));
+
+app.get("/successfullyCreatedYourServiceProviderProfile", requireAuth, (req, res) => res.render("successfullyCreatedYourServiceProviderProfile"));
 
 app.get("/viewServiceProviderDetails/:id", requireAuth, async (req, res) => {
   try {
@@ -67,7 +74,6 @@ app.get("/viewServiceProviderDetails/:id", requireAuth, async (req, res) => {
     console.log(error);
   }
 });
-
 
 app.listen(port, () => {
   console.log(`successfully running on PORT ${port}`);
