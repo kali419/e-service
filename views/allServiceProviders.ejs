@@ -191,6 +191,8 @@
 
   /* Button styles */
   .btn-follow {
+    margin: 0 auto;
+    width: 90%;
     display: block;
     text-align: center;
     padding: 10px;
@@ -297,7 +299,7 @@
             <p style="margin: 5px; font-size: 13px;"> <%= serviceProvider.location %></p>
           </div>
           <div class="card-view">
-            <a href="/viewServiceProviderDetails/<%=serviceProvider._id %>" class="btn-follow"><span class="sr-only">View profile</span></a>
+            <a href="/viewServiceProviderDetails/<%=serviceProvider._id %>" class="btn-follow">View profile</a>
           </div>
           <!-- Icons using Boxicons -->
           <div class="icons">
