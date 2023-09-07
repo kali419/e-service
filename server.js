@@ -14,6 +14,8 @@ const port = process.env.PORT;
 // set views
 app.set("views", "./views");
 app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
 
 // middle-ware
 app.use(express.json());
