@@ -134,7 +134,7 @@ module.exports.createServiceProvider_post = async (req, res) => {
 
 
 // Route to view a service provider's 
-module.exports.view_profile_get = async (req, res) => {
+module.exports.view_Profile_get = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) {
@@ -142,7 +142,7 @@ module.exports.view_profile_get = async (req, res) => {
     }
 
     // Render the profile view template
-    res.render('view_profile', { user });
+    res.render('view_Profile', { user });
   } catch (error) {
     res.status(500).json({ message: 'There was an error while retrieving your  profile' });
     console.log(error);
