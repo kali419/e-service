@@ -153,7 +153,7 @@
   background-color: gray;
   font-size: 14px;
   color: #f3f3f3;
-  text-transform: uppercase;
+  text-transform: lowercase;
 }
 
 #send-request {
@@ -285,9 +285,9 @@
   </div>
 
   <div id="overlay" class="overlay">
-    <form id="request-form" class="request-form">
+    <form id="request-form" class="request-form" action="/getServiceProvidersByServiceAndLocation" method="GET">
       <h2>Request Service</h2>
-      <input type="text" id="selected-service" disabled>
+      <input type="text" id="selected-service" disabled >
       <input type="text" id="inputLocation" placeholder="Enter your location">
       <p  id="getLocationBtn" style="color:white;">get location</p>
       <button type="submit" id="send-request">Send Request</button>
@@ -364,14 +364,16 @@
  
 
 // Event listener for send request button
-sendRequestButton.addEventListener("click", async () => {
+sendRequestButton.addEventListener("submit", async (event) => {
+        event.preventDefault();
     const selectedService = serviceNameInput.value;
     const location = locationInput.value;
 
     try {
       // Send request to find matching service providers
-      const response = await fetch(`/find-service-providers?service=${selectedService}&location=${location}`);
+      const response = await fetch(`/getServiceProvidersByServiceAndLocation?service=${selectedService}&location=${location}`);
       const matchingServiceProviders = await response.json();
+      
 
       // Display matching service providers
       const serviceProvidersContainer = document.getElementById("service-providers-container");
@@ -385,10 +387,10 @@ sendRequestButton.addEventListener("click", async () => {
         // provider.profilePicture, provider.brandName, provider.specialization
 
         providerCard.innerHTML = `
-          <img src="${serviceProvider.profilePicture}" alt="${serviceProvider.brandName}">
-          <h3>${serviceProvider.brandName}</h3>
-          <p>${provider.specialization}</p>
-          <a href="/view-profile/${provider._id}" class="view-profile-btn">View Profile</a>
+          <img src="${serviceProviders.profilePicture}" alt="${serviceProviders.brandName}">
+          <h3>${serviceProviders.brandName}</h3>
+          <p>${serviceProviders.specialization}</p>
+          <a href="/view-profile/${serviceProviders._id}" class="view-profile-btn">View Profile</a>
           <button class="send-request-btn">Send Request</button>
         `;
 
@@ -401,7 +403,6 @@ sendRequestButton.addEventListener("click", async () => {
 
     // Close overlay
     closeOverlay();
-    closeServices();
   });
 
 // Event listener for close overlay button

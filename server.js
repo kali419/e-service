@@ -53,6 +53,31 @@ app.get("/allServiceProviders", requireAuth, async (req, res) => {
   }
 });
 
+app.get("/getServiceProvidersByServiceAndLocation", async (req, res) => {
+  const { service, location } = req.query;
+
+  // Check if location is a string and not empty
+  if (typeof location === "string" && location.trim() !== "") {
+    try {
+      // Perform the MongoDB query with $regex
+      const serviceProviders = await serviceProvider.find({
+        $or: [
+          { service: service }, // Match exact service name
+          { location: { $regex: location, $options: "i" } }, // Case-insensitive location search
+        ],
+      });
+
+      res.json(serviceProviders);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error finding service providers" });
+    }
+  } else {
+    // Return an error response if location is not a valid string
+    res.status(400).json({ message: "Invalid location parameter" });
+  }
+});
+
 app.get("/getStarted", requireAuth, (req, res) => res.render("getStarted"));
 
 app.get("/getStartedAsAServiceProvider", requireAuth, (req, res) => res.render("getStartedAsAServiceProvider"));
@@ -60,6 +85,17 @@ app.get("/getStartedAsAServiceProvider", requireAuth, (req, res) => res.render("
 app.get("/successfullyCreatedAnAccount", requireAuth, (req, res) => res.render("successfullyCreatedAnAccount"));
 
 app.get("/successfullyCreatedYourServiceProviderProfile", requireAuth, (req, res) => res.render("successfullyCreatedYourServiceProviderProfile"));
+
+app.get("/findServiceProvider", requireAuth, async (req, res) => {
+  try {
+    const serviceProviders = await serviceProvider.find();
+
+    res.render('findServiceProvider', { serviceProviders });
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 app.get("/viewServiceProviderDetails/:id", requireAuth, async (req, res) => {
   try {

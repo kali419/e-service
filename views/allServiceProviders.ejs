@@ -76,7 +76,7 @@
             margin-top: 40px;
         }
         /* Search input styles */
-        #search-input {
+        #location-input {
             padding: 6px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -90,7 +90,7 @@
             margin-right: 10px;
         }
 
-        #category {
+        #service {
             padding: 6px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -98,12 +98,13 @@
         }
 
   /* Service providers container styles */
-  .service-providers-container {
+  .service-providers-container, 
+  #service-providers-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 20px;
-    padding: 50px;
+    padding: 20px 70px;
     text-align: center;
     background-color: #fafafa;
   }
@@ -188,10 +189,27 @@
     font-size: 15px;
     color: #333;
   }
+  #showSearchButton {
+        background: linear-gradient(-100deg, #4158d0, #11245A);
+        display: block;
+        max-width: 400px;
+        margin: 40px auto;
+        padding: 10px 20px;
+        color: #fff;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
 
+    #showSearchButton:hover {
+        background-color: #0056b3;
+    }
   /* Button styles */
   .btn-follow {
     margin: 0 auto;
+    border: none;
     width: 90%;
     display: block;
     text-align: center;
@@ -209,8 +227,10 @@
 
   /* Media query for responsive design */
   @media (max-width: 768px) {
-    .service-providers-container {
+    .service-providers-container, 
+  #service-providers-container {
       flex-direction: column;
+      padding: 20px 20px;
     }
 
     .service-providers h1 {
@@ -236,8 +256,8 @@
     .service-providers h1 {
             font-size: 1.7em;
         }
-    .service-providers-container {
-
+    .service-providers-container, 
+    #service-providers-container {
         padding: 50px 10px;
     }
   }
@@ -260,13 +280,33 @@
   <h1>e-service Providers</h1>
   <div class="line"></div>
   <div class="filter-container">
-      <input type="search" id="search-input" placeholder="Search services...">
-      <select id="category">
-          <option value="All">All</option>
-          <option value="homeServices">Home Service</option>
-          <option value="personalCare">Personal Care Service</option>
-          <!-- Add your category options here -->
-      </select>
+  <button id="showSearchButton" class="action-btn"><i class='bx bx-search'></i> Search Service Providers</button>
+
+<div class="filter-container" id="searchFormContainer" style="display: none;">
+  <div class="profile-details"></div>
+  <h1>Search Service Providers</h1>
+  <form id="searchForm" action="/getServiceProvidersByServiceAndLocation" method="GET">
+    <input type="text" id="location-input" placeholder="Location...">
+    <select id="service">
+      <option>All</option>
+      <option>house cleaning</option>
+      <option>lawn maintenance</option>
+      <option>Plumbing Service</option>
+      <option>Errands</option>
+      <!-- Add your category options here -->
+    </select>
+    <button style="
+      background: linear-gradient(-100deg, #4158d0, #11245A);
+      display: block;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      color: #fff;
+      text-align: center;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;  " type="submit">Search</button>
+  </form>
+</div>
   </div>
 
   <% 
@@ -283,6 +323,9 @@
   // Shuffle the allServiceProviders array randomly
   const shuffledServiceProviders = shuffleArray(allServiceProviders);
   %>
+  <div id="service-providers-container" >
+    <!-- Matching service providers will be dynamically added here -->
+  </div>
   
   <div class="service-providers-container">
     <% shuffledServiceProviders.forEach(serviceProvider => { %>
@@ -321,3 +364,143 @@
 <div class="profile-details"></div>
 
 <%- include('partials/userFooter'); -%>
+
+<script>
+  const showSearchButton = document.getElementById("showSearchButton");
+  const searchFormContainer = document.getElementById("searchFormContainer");
+  const serviceProvidersContainer = document.querySelector('.service-providers-container');
+
+
+  showSearchButton.addEventListener("click", () => {
+    // Show the search form and hide the button
+    showSearchButton.style.display = "none";
+    searchFormContainer.style.display = "block";
+  });
+
+  // Function to hide the service providers container
+  function hideServiceProviders() {
+    serviceProvidersContainer.style.display = "none";
+  }
+
+  
+
+// Shuffle function to randomize the array
+function shuffleArray(array) {
+  let shuffledArray = array.slice();
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+  return shuffledArray;
+}
+
+const searchForm = document.getElementById("searchForm");
+
+searchForm.addEventListener("submit", async (event) => {
+  event.preventDefault(); // Prevent the default form submission behavior
+
+  const service = document.getElementById("service").value;
+  const location = document.getElementById("location-input").value;
+
+  // Send a GET request to the /getServiceProvidersByServiceAndLocation route with the query parameters
+
+  // Send request to find matching service providers
+  const response = await fetch(`/getServiceProvidersByServiceAndLocation?service=${service}&location=${location}`);
+
+  if (response.ok) {
+    const serviceProviders = await response.json(); // Store the response data
+    // Process the data as needed
+    console.log(serviceProviders);
+
+    // Shuffle the service providers randomly
+    const shuffledServiceProviders = shuffleArray(serviceProviders);
+
+    // Display matching service providers
+    const serviceProvidersContainer = document.getElementById("service-providers-container");
+    serviceProvidersContainer.innerHTML = ""; // Clear previous content
+
+    shuffledServiceProviders.forEach(serviceProvider => {
+      const providerCard = document.createElement("div");
+      providerCard.classList.add("service-provider-card");
+
+      // Access the provider's details like:
+      // serviceProvider.profilePicture, serviceProvider.brandName, serviceProvider.specialization
+
+      providerCard.innerHTML = `
+          <div class="profile-container">
+            <div class="card-header" style="background-image: url(/uploads/${serviceProvider.profilePicture}); border-radius: 5px;"></div>
+            <div class="profile-header">
+              <h2>${serviceProvider.brandName}</h2>
+            </div>
+            <div class="profile-details">
+              <h3><strong></strong> ${serviceProvider.service}</h3>
+              <div class="profile-details"></div>
+              <h5><strong></strong> ${serviceProvider.specialization}</h5>
+              <p style="margin: 5px; font-size: 13px;"> ${serviceProvider.location}</p>
+            </div>
+            <div class="card-view">
+              <a href="/viewServiceProviderDetails/${serviceProvider._id}" class="btn-follow">View profile</a>
+            </div>
+            <!-- Icons using Boxicons -->
+            <div class="icons">
+              <a href="mailto:${serviceProvider.email}?subject=Service Inquiry" class="icon">
+                <i class='bx bx-envelope'></i> <!-- Email icon -->
+              </a>
+              <a href="tel:${serviceProvider.phoneNumber}" class="icon">
+                <i class='bx bx-phone'></i> <!-- Phone icon -->
+              </a>
+              <a href="${serviceProvider.certificate}" class="icon">
+                <i class='bx bx-download'></i> <!-- Download icon -->
+              </a>
+            </div>
+          </div>
+      `;
+
+      serviceProvidersContainer.appendChild(providerCard);
+    });
+
+    hideServiceProviders();
+  } else {
+    console.error("Error searching for service providers");
+    // Handle errors here
+  }
+});
+
+const button = document.getElementById("location-input");
+
+
+button.addEventListener("click", ()=>{
+    if(navigator.geolocation){
+        button.value = "Allow to detect location";
+        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    }else{
+        button.value = "Your browser not support";
+    }
+});
+
+function onSuccess(position){
+    button.value = "Detecting your location...";
+    let {latitude, longitude} = position.coords;
+    fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=ff5bb39b31c5449ba6f9b57c7fe5376a`)
+    .then(response => response.json()).then(response =>{
+        let allDetails = response.results[0].components;
+        console.table(allDetails);
+        let {state, city, road} = allDetails;
+        button.value = `${state} ,${city},${road}`;
+    }).catch(()=>{
+        button.value = "Something went wrong";
+    });
+}
+
+function onError(error){
+    if(error.code == 1){
+        button.innerText = "You denied the request";
+    }else if(error.code == 2){
+        button.innerText = "Location is unavailable";
+    }else{
+        button.innerText = "Something went wrong";
+    }
+    button.setAttribute("disabled", "true");
+}
+
+</script>
