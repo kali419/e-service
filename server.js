@@ -56,12 +56,12 @@ app.get("/allServiceProviders", requireAuth, async (req, res) => {
 app.get("/getServiceProvidersByServiceAndLocation", async (req, res) => {
   const { service, location } = req.query;
 
-  // Check if location is a string and not empty
-  if (typeof location === "string" && location.trim() !== "") {
+  // Check if both service and location parameters are provided
+  if (service && location) {
     try {
-      // Perform the MongoDB query with $regex
+      // Perform the MongoDB query with $regex for location
       const serviceProviders = await serviceProvider.find({
-        $or: [
+        $and: [
           { service: service }, // Match exact service name
           { location: { $regex: location, $options: "i" } }, // Case-insensitive location search
         ],
@@ -72,11 +72,32 @@ app.get("/getServiceProvidersByServiceAndLocation", async (req, res) => {
       console.error(error);
       res.status(500).json({ message: "Error finding service providers" });
     }
-  } else {
-    // Return an error response if location is not a valid string
-    res.status(400).json({ message: "Invalid location parameter" });
+  } else  if (location) {
+    // If only location is provided
+    try {
+      const serviceProviders = await serviceProvider.find({
+        location: { $regex: location, $options: "i" }, // Case-insensitive location search
+      });
+      res.json(serviceProviders);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error finding service providers" });
+    }
+  } else if (service) {
+    // If only service is provided
+    try {
+      const serviceProviders = await serviceProvider.find({ service: service });
+      res.json(serviceProviders);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error finding service providers" });
+    }
+  }  else {
+    // Return an error response if neither service nor location is provided
+    res.status(400).json({ message: "Invalid parameters" });
   }
 });
+
 
 app.get("/getStarted", requireAuth, (req, res) => res.render("getStarted"));
 
