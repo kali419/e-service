@@ -29,7 +29,7 @@ router.get("/login", authController.login_get);
 router.post("/login", authController.login_post);
 router.get("/createServiceProvider", authController.createServiceProvider_get);
 router.post("/createServiceProvider", upload.fields([{ name: "profilePicture" }, { name: "certificate" }]),authController.createServiceProvider_post);
-router.get("/view_profile/:id", authController.view_profile_get);
+router.get("/view_Profile/:id", authController.view_profile_get);
 router.get("/contact", authController.contact_get);
 router.post("/contact", authController.contact_post);
 router.get("/logout", authController.logout_get);
