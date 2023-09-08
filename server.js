@@ -57,47 +57,29 @@ app.get("/allServiceProviders", requireAuth, async (req, res) => {
 app.get("/getServiceProvidersByServiceAndLocation", async (req, res) => {
   const { service, location } = req.query;
 
-  // Check if both service and location parameters are provided
-  if (service && location) {
-    try {
-      // Perform the MongoDB query with $regex for location
-      const serviceProviders = await serviceProvider.find({
-        $and: [
-          { service: service }, // Match exact service name
-          { location: { $regex: location, $options: "i" } }, // Case-insensitive location search
-        ],
-      });
+  try {
+    let query = {};
 
-      res.json(serviceProviders);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error finding service providers" });
+    if (service) {
+      // If service is provided, perform a case-insensitive partial match
+      query.service = { $regex: service, $options: "i" };
     }
-  } else  if (location) {
-    // If only location is provided
-    try {
-      const serviceProviders = await serviceProvider.find({
-        location: { $regex: location, $options: "i" }, // Case-insensitive location search
-      });
-      res.json(serviceProviders);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error finding service providers" });
+
+    if (location) {
+      // If location is provided, perform a case-insensitive partial match
+      query.location = { $regex: location, $options: "i" };
     }
-  } else if (service) {
-    // If only service is provided
-    try {
-      const serviceProviders = await serviceProvider.find({ service: service });
-      res.json(serviceProviders);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error finding service providers" });
-    }
-  }  else {
-    // Return an error response if neither service nor location is provided
-    res.status(400).json({ message: "Invalid parameters" });
+
+    // Perform the MongoDB query using the combined query object
+    const serviceProviders = await serviceProvider.find(query);
+
+    res.json(serviceProviders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error finding service providers" });
   }
 });
+
 
 
 app.get("/getStarted", requireAuth, (req, res) => res.render("getStarted"));
