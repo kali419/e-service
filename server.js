@@ -61,17 +61,32 @@ app.get("/getServiceProvidersByServiceAndLocation", async (req, res) => {
     let query = {};
 
     if (service) {
-      // If service is provided, perform a case-insensitive partial match
       query.service = { $regex: service, $options: "i" };
     }
 
     if (location) {
-      // If location is provided, perform a case-insensitive partial match
       query.location = { $regex: location, $options: "i" };
     }
 
-    // Perform the MongoDB query using the combined query object
-    const serviceProviders = await serviceProvider.find(query);
+    let serviceProviders;
+
+    if (service && location) {
+      // If both service and location are provided, use $and to match both
+      serviceProviders = await serviceProvider.find({
+        $and: [
+          { service: query.service },
+          { location: query.location },
+        ],
+      });
+    } else {
+      // If either service or location is provided, use $or to match either
+      serviceProviders = await serviceProvider.find({
+        $or: [
+          { service: query.service },
+          { location: query.location },
+        ],
+      });
+    }
 
     res.json(serviceProviders);
   } catch (error) {
@@ -82,7 +97,8 @@ app.get("/getServiceProvidersByServiceAndLocation", async (req, res) => {
 
 
 
-app.get("/getStarted", requireAuth, (req, res) => res.render("getStarted"));
+
+app.get("/getStarted", (req, res) => res.render("getStarted"));
 
 app.get("/getStartedAsAServiceProvider", requireAuth, (req, res) => res.render("getStartedAsAServiceProvider"));
 
@@ -90,16 +106,7 @@ app.get("/successfullyCreatedAnAccount", requireAuth, (req, res) => res.render("
 
 app.get("/successfullyCreatedYourServiceProviderProfile", requireAuth, (req, res) => res.render("successfullyCreatedYourServiceProviderProfile"));
 
-app.get("/findServiceProvider", requireAuth, async (req, res) => {
-  try {
-    const serviceProviders = await serviceProvider.find();
 
-    res.render('findServiceProvider', { serviceProviders });
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
 
 app.get("/viewServiceProviderDetails/:id", requireAuth, async (req, res) => {
   try {
