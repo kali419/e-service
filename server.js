@@ -96,8 +96,6 @@ app.get("/getServiceProvidersByServiceAndLocation", async (req, res) => {
 });
 
 
-
-
 app.get("/getStarted", (req, res) => res.render("getStarted"));
 
 app.get("/getStartedAsAServiceProvider", requireAuth, (req, res) => res.render("getStartedAsAServiceProvider"));
