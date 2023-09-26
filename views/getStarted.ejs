@@ -3,76 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <title>Getting started</title>
+    
+    <title>Create Account</title>
 </head>
 <body>
-    
 <style>
-    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+    
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Roboto:wght@300&display=swap');
 
-    .content {
-        margin: 100px auto;
-        max-width: 900px;
-        padding: 20px;
-    }
+  .content {
+      margin: 100px auto;
+      max-width: 900px;
+      padding: 20px;
+  }
 
-    .container {
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        border-radius: 5px;
-        padding: 20px;
-        margin: 20px auto;
-    }
+  .container {
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      border-radius: 5px;
+      padding: 20px;
+      margin: 20px auto;
+  }
 
-    h1 {
-        color: #333;
-        text-align: center;
-        font-size: 24px;
-        margin-top: 40px;
-    }
+  h1 {
+      color: #333;
+      text-align: center;
+      font-size: 24px;
+      margin-top: 40px;
+  }
 
-    p {
-        font-size: 18px;
-        text-align: center;
-    }
+  p {
+      font-size: 18px;
+      text-align: center;
+  }
 
-    .btn-get-started {
-        background: linear-gradient(-100deg, #4158d0, #11245A);
-        display: block;
-        max-width: 400px;
-        margin: 40px auto;
-        padding: 10px 20px;
-        color: #fff;
-        text-align: center;
-        text-decoration: none;
-        border-radius: 5px;
-        transition: background-color 0.3s ease;
-    }
+  .btn-get-started {
+      background: linear-gradient(-100deg, #4158d0, #11245A);
+      display: block;
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 10px 20px;
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+  }
 
-    .btn-get-started:hover {
-        background-color: #0056b3;
-    }
+  .btn-get-started:hover {
+      background-color: #0056b3;
+  }
 
-    /* Responsive Styles */
-    @media (min-width: 768px) {
-        .content {
-            margin: 100px auto;
-        }
+  /* Style for the Font Awesome icon */
+  .fa-user {
+    font-size: 110px;
+    color: #1c3986;
+    margin: 20px auto;
+    display: block; 
+    text-align: center;
+    line-height: 110px;
+}
 
-        .container {
-            max-width: 500px;
-        }
-    }
+
+  /* Responsive Styles */
+  @media (min-width: 768px) {
+      .content {
+          margin: 100px auto;
+      }
+
+      .container {
+          max-width: 500px;
+      }
+  }
 </style>
 <div class="content">
     <div class="container">
+        <i class="fas fa-user"></i> <!-- Font Awesome user icon -->
         <h1>Create Account</h1>
-        <p>Join us today and explore wide range of service.</p>
+        <p>Join us today and explore a wide range of services.</p>
         <a href="/signup" class="btn-get-started">Get Started</a>
     </div>
 </div>
-<%- include('partials/userFooter'); -%>
+
+<!-- Include Font Awesome JavaScript (if needed for interactions) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 
 </body>
 </html>

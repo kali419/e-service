@@ -88,6 +88,7 @@ app.get("/getServiceProvidersByServiceAndLocation", async (req, res) => {
       });
     }
 
+    console.log(serviceProviders);
     res.json(serviceProviders);
   } catch (error) {
     console.error(error);
