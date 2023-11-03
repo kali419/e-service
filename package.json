@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "web": "nodemon server.js"
+    "start": "node server.js"
   },
   "author": "The North Brother's Tech",
   "license": "ISC",

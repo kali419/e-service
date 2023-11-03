@@ -9,7 +9,7 @@ const dbConnection = require("./db/dbConnection");
 const User = require("./schema/User")
 const serviceProvider = require("./schema/serviceProvider")
 
-const port = process.env.PORT;
+const port = process.env.PORT || 8000;
 
 // set views
 app.set("views", "./views");
@@ -20,7 +20,7 @@ app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/public"));
-app.use(authRoutes);
+app.use(authRoutes); 
 app.use(cookieParser());
 
 app.get("*", checkUser);

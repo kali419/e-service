@@ -272,6 +272,8 @@
       <!-- Add your category options here -->
     </select>
   </div>
+
+  
   <div id="service-providers-container" class="service-providers-container">
     <!-- Matching service providers will be dynamically added here -->
   </div>
@@ -364,41 +366,69 @@ sendRequestButton.addEventListener("submit", async (event) => {
     const selectedService = serviceNameInput.value;
     const location = locationInput.value;
 
-    try {
+
       // Send request to find matching service providers
       const response = await fetch(`/getServiceProvidersByServiceAndLocation?service=${selectedService}&location=${location}`);
-      const matchingServiceProviders = await response.json();
+
+
+      if (response.ok) {
+        const matchingServiceProviders = await response.json();
+
+        console.log(matchingServiceProviders);
+
       
+      const shuffledServiceProviders = shuffleArray(matchingServiceProviders);
 
-      // Display matching service providers
-      const serviceProvidersContainer = document.getElementById("service-providers-container");
-      serviceProvidersContainer.innerHTML = ""; // Clear previous content
+    // Display matching service providers
+    const serviceProvidersContainer = document.getElementById("service-providers-container");
+    serviceProvidersContainer.innerHTML = ""; // Clear previous content
 
-      matchingServiceProviders.forEach(provider => {
-        const providerCard = document.createElement("div");
-        providerCard.classList.add("provider-card");
+    shuffledServiceProviders.forEach(matchingServiceProviders => {
+      const providerCard = document.createElement("div");
+      providerCard.classList.add("service-provider-card");
 
-        // You can access the provider's details like:
-        // provider.profilePicture, provider.brandName, provider.specialization
+      // Access the provider's details like:
+      // serviceProvider.profilePicture, serviceProvider.brandName, serviceProvider.specialization
 
-        providerCard.innerHTML = `
-          <img src="${serviceProviders.profilePicture}" alt="${serviceProviders.brandName}">
-          <h3>${serviceProviders.brandName}</h3>
-          <p>${serviceProviders.specialization}</p>
-          <a href="/view-profile/${serviceProviders._id}" class="view-profile-btn">View Profile</a>
-          <button class="send-request-btn">Send Request</button>
-        `;
+      providerCard.innerHTML = `
+          <div class="profile-container">
+            <div class="card-header" style="background-image: url(/uploads/${serviceProvider.profilePicture}); border-radius: 5px;"></div>
+            <div class="profile-header">
+              <h2>${serviceProvider.brandName}</h2>
+            </div>
+            <div class="profile-details">
+              <h3><strong></strong> ${serviceProvider.service}</h3>
+              <div class="profile-details"></div>
+              <h5><strong></strong> ${serviceProvider.specialization}</h5>
+              <p style="margin: 5px; font-size: 13px;"> ${serviceProvider.location}</p>
+            </div>
+            <div class="card-view">
+              <a href="/viewServiceProviderDetails/${serviceProvider._id}" class="btn-follow">View profile</a>
+            </div>
+            <!-- Icons using Boxicons -->
+            <div class="icons">
+              <a href="mailto:${serviceProvider.email}?subject=Service Inquiry" class="icon">
+                <i class='bx bx-envelope'></i> <!-- Email icon -->
+              </a>
+              <a href="tel:${serviceProvider.phoneNumber}" class="icon">
+                <i class='bx bx-phone'></i> <!-- Phone icon -->
+              </a>
+              <a href="${serviceProvider.certificate}" class="icon">
+                <i class='bx bx-download'></i> <!-- Download icon -->
+              </a>
+            </div>
+          </div>
+      `;
 
-        serviceProvidersContainer.appendChild(providerCard);
-      });
+      serviceProvidersContainer.appendChild(providerCard);
+    });
 
-    } catch (error) {
-      console.error("Error:", error);
-    }
-
-    // Close overlay
-    closeOverlay();
-  });
+    closeServices();
+  } else {
+    console.error("Error searching for service providers");
+    // Handle errors here
+  }
+});
 
 // Event listener for close overlay button
 closeOverlayButton.addEventListener("click", closeOverlay);
